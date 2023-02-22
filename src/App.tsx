@@ -3,22 +3,19 @@ import clsx from "clsx";
 import { AnswersButton } from "./components/AnswersButton";
 import { questions } from "./data/questions";
 
-// interface CorrectProps {
-//   isCorrect: boolean;
-// }
+interface CorrectProps {
+  isCorrect: boolean;
+}
 
 function App() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
-  const correct = questions[currentQuestion].answerOptions.map(
-    (_) => _.isCorrect
-  );
 
-  function handleAnswerButtonClick() {
-    // if (isCorrect) {
-    //   setScore(score + 1);
-    // }
+  function handleAnswerButtonClick(isCorrect: boolean) {
+    if (isCorrect) {
+      setScore(score + 1);
+    }
 
     const nextQuestion = currentQuestion + 1;
 
@@ -27,7 +24,7 @@ function App() {
       : setShowScore(true);
   }
 
-  console.log(correct);
+  // console.log(correct);
   return (
     <div className="bg-[#252d4a] text-white absolute rounded-2xl w-11/12 max-w-lg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ease-in-out duration-300 shadow-2xl">
       {showScore ? (
@@ -52,15 +49,17 @@ function App() {
               {questions[currentQuestion].answerOptions.map((answer, i) => {
                 return (
                   <span key={i}>
-                    <button
+                    <AnswersButton
                       type="button"
                       className={clsx(
                         "bg-[#252d4a] w-full sm:w-64 flex justify-center items-center border-4 border-[#234668] px-2 py-5 h-10 rounded-lg hover:bg-[#555e7d]"
                       )}
-                      onClick={() => handleAnswerButtonClick()}
+                      onClick={() => {
+                        handleAnswerButtonClick(answer.isCorrect);
+                      }}
                     >
                       {answer.answerText}
-                    </button>
+                    </AnswersButton>
                   </span>
                 );
               })}
