@@ -3,9 +3,9 @@ import clsx from "clsx";
 import { AnswersButton } from "./components/AnswersButton";
 import { questions } from "./data/questions";
 
-interface CorrectProps {
-  isCorrect: boolean;
-}
+// interface CorrectProps {
+//   isCorrect: boolean;
+// }
 
 function App() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -14,12 +14,11 @@ function App() {
   const correct = questions[currentQuestion].answerOptions.map(
     (_) => _.isCorrect
   );
-  const [isCorrect] = useState<{}>();
 
-  function handleAnswerButtonClick({ isCorrect }: CorrectProps) {
-    if (isCorrect) {
-      setScore(score + 1);
-    }
+  function handleAnswerButtonClick() {
+    // if (isCorrect) {
+    //   setScore(score + 1);
+    // }
 
     const nextQuestion = currentQuestion + 1;
 
@@ -58,7 +57,7 @@ function App() {
                       className={clsx(
                         "bg-[#252d4a] w-full sm:w-64 flex justify-center items-center border-4 border-[#234668] px-2 py-5 h-10 rounded-lg hover:bg-[#555e7d]"
                       )}
-                      onClick={() => handleAnswerButtonClick(answer.isCorrect)}
+                      onClick={() => handleAnswerButtonClick()}
                     >
                       {answer.answerText}
                     </button>
