@@ -5,10 +5,6 @@ import { questions } from "./data/questions";
 
 import Lug from "./assets/Lug.svg";
 
-interface CorrectProps {
-  isCorrect: boolean;
-}
-
 function App() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
@@ -26,7 +22,21 @@ function App() {
       : setShowScore(true);
   }
 
-  // console.log(correct);
+  function shuffleArrayWithoutRepetitions(array: any[]) {
+    const indices = Array.from({ length: array.length }, (_, i) => i);
+    const shuffledIndices = indices.sort(() => Math.random() - 0.5);
+    const shuffledArray = [];
+
+    for (const index of shuffledIndices) {
+      shuffledArray.push(array[index]);
+    }
+
+    return shuffledArray;
+  }
+
+  const shuffledArray = shuffleArrayWithoutRepetitions(questions);
+  // console.log(shuffledArray);
+
   return (
     <>
       <div className="bg-[#252d4a] text-white absolute rounded-2xl w-11/12 max-w-lg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ease-in-out duration-300 shadow-2xl">
