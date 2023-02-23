@@ -3,13 +3,11 @@ import clsx from "clsx";
 import { AnswersButton } from "./components/AnswersButton";
 import { questions } from "./data/questions";
 
-import Lug from "./assets/Lug.svg";
-
 function App() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
-  const [showResult, setShowResult] = useState(0);
+  const [showResult, setShowResult] = useState(false);
 
   function handleAnswerButtonClick(isCorrect: boolean) {
     if (isCorrect) {
@@ -27,19 +25,19 @@ function App() {
     console.log(isCorrect);
   }
 
-  function shuffleArrayWithoutRepetitions(array: any[]) {
-    const indices = Array.from({ length: array.length }, (_, i) => i);
-    const shuffledIndices = indices.sort(() => Math.random() - 0.5);
-    const shuffledArray = [];
+  // function shuffleArrayWithoutRepetitions(array: any[]) {
+  //   const indices = Array.from({ length: array.length }, (_, i) => i);
+  //   const shuffledIndices = indices.sort(() => Math.random() - 0.5);
+  //   const shuffledArray = [];
 
-    for (const index of shuffledIndices) {
-      shuffledArray.push(array[index]);
-    }
+  //   for (const index of shuffledIndices) {
+  //     shuffledArray.push(array[index]);
+  //   }
 
-    return shuffledArray;
-  }
+  //   return shuffledArray;
+  // }
 
-  const shuffledArray = shuffleArrayWithoutRepetitions(questions);
+  // const shuffledArray = shuffleArrayWithoutRepetitions(questions);
   // console.log(shuffledArray);
 
   // function handleCheckIsCorrectButton(isCorrect: boolean) {
@@ -76,8 +74,10 @@ function App() {
                         className={clsx(
                           "bg-[#252d4a] w-full sm:w-64 flex justify-center items-center border-4 border-[#234668] px-2 py-6 h-10 rounded-lg hover:bg-[#555e7d]",
                           {
-                            // "bg-rose-500": showResult === false,
-                            // "bg-green-500": showResult === true,
+                            "bg-rose-500":
+                              showResult && answer.isCorrect === false,
+                            "bg-green-500":
+                              showResult && answer.isCorrect === true,
                           }
                         )}
                         onClick={() => {
