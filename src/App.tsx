@@ -39,10 +39,10 @@ function App() {
 
   return (
     <>
-      <div className="bg-[#252d4a] text-white absolute rounded-2xl w-11/12 max-w-lg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ease-in-out duration-300 shadow-2xl">
+      <div className="bg-[#252d4a] text-white absolute rounded-2xl w-11/12 max-w-2xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ease-in-out duration-300 shadow-2xl">
         {showScore ? (
           <div className="flex items-center justify-center text-2xl p-20">
-            Your {score} out of {questions.length}
+            Você acertou {score} de {questions.length}
           </div>
         ) : (
           <>
@@ -50,7 +50,7 @@ function App() {
               <div className="w-80 flex flex-col items-center sm:justify-start gap-5">
                 <div>
                   <span className="font-medium text-2xl pr-1 select-none	">
-                    Question {currentQuestion + 1}
+                    Perguntas {currentQuestion + 1}
                   </span>
                   <span>/{questions.length} </span>
                 </div>
@@ -64,9 +64,7 @@ function App() {
                     <span key={i}>
                       <AnswersButton
                         type="button"
-                        className={clsx(
-                          "bg-[#252d4a] w-full sm:w-64 flex justify-center items-center border-4 border-[#234668] px-2 py-5 h-10 rounded-lg hover:bg-[#555e7d]"
-                        )}
+                       
                         onClick={() => {
                           handleAnswerButtonClick(answer.isCorrect);
                         }}
