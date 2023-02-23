@@ -9,6 +9,7 @@ function App() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
+  const [showResult, setShowResult] = useState(0);
 
   function handleAnswerButtonClick(isCorrect: boolean) {
     if (isCorrect) {
@@ -18,8 +19,12 @@ function App() {
     const nextQuestion = currentQuestion + 1;
 
     nextQuestion < questions.length
-      ? setCurrentQuestion(nextQuestion)
+      ? setInterval(() => {
+          setCurrentQuestion(nextQuestion);
+        }, 1000)
       : setShowScore(true);
+
+    console.log(isCorrect);
   }
 
   function shuffleArrayWithoutRepetitions(array: any[]) {
@@ -36,6 +41,10 @@ function App() {
 
   const shuffledArray = shuffleArrayWithoutRepetitions(questions);
   // console.log(shuffledArray);
+
+  // function handleCheckIsCorrectButton(isCorrect: boolean) {
+  //   setShowResult(isCorrect);
+  // }
 
   return (
     <>
@@ -64,9 +73,16 @@ function App() {
                     <span key={i}>
                       <AnswersButton
                         type="button"
-                       
+                        className={clsx(
+                          "bg-[#252d4a] w-full sm:w-64 flex justify-center items-center border-4 border-[#234668] px-2 py-6 h-10 rounded-lg hover:bg-[#555e7d]",
+                          {
+                            // "bg-rose-500": showResult === false,
+                            // "bg-green-500": showResult === true,
+                          }
+                        )}
                         onClick={() => {
                           handleAnswerButtonClick(answer.isCorrect);
+                          // handleCheckIsCorrectButton(answer.isCorrect);
                         }}
                       >
                         {answer.answerText}
