@@ -7,7 +7,9 @@ function App() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
-  const [showResult, setShowResult] = useState(false);
+  const [showResult, setShowResult] = useState<boolean | null>(null);
+
+  // const [ progress, setProgress ] = useState();
 
   function handleAnswerButtonClick(isCorrect: boolean) {
     if (isCorrect) {
@@ -17,9 +19,10 @@ function App() {
     const nextQuestion = currentQuestion + 1;
 
     nextQuestion < questions.length
-      ? setInterval(() => {
+      ? setTimeout(() => {
           setCurrentQuestion(nextQuestion);
-        }, 1000)
+          setShowResult(false);
+        }, 700)
       : setShowScore(true);
 
     console.log(isCorrect);
@@ -40,9 +43,18 @@ function App() {
   // const shuffledArray = shuffleArrayWithoutRepetitions(questions);
   // console.log(shuffledArray);
 
-  // function handleCheckIsCorrectButton(isCorrect: boolean) {
-  //   setShowResult(isCorrect);
-  // }
+  function handleCheckIsCorrectButton(isCorrect: boolean) {
+    setShowResult(isCorrect);
+  }
+
+  const options = questions[currentQuestion].answerOptions;
+
+  console.log(
+    options.forEach((obj, i) => {
+      console.log(obj);
+      console.log(i);
+    })
+  );
 
   return (
     <>
@@ -74,15 +86,15 @@ function App() {
                         className={clsx(
                           "bg-[#252d4a] w-full sm:w-64 flex justify-center items-center border-4 border-[#234668] px-2 py-6 h-10 rounded-lg hover:bg-[#555e7d]",
                           {
-                            "bg-rose-500":
-                              showResult && answer.isCorrect === false,
-                            "bg-green-500":
-                              showResult && answer.isCorrect === true,
+                            "bg-rose-500 hover:bg-rose-400":
+                              showResult === true && answer.isCorrect === false,
+                            "bg-green-500 hover:bg-green-400":
+                              showResult === true && answer.isCorrect === true,
                           }
                         )}
                         onClick={() => {
                           handleAnswerButtonClick(answer.isCorrect);
-                          // handleCheckIsCorrectButton(answer.isCorrect);
+                          handleCheckIsCorrectButton(true);
                         }}
                       >
                         {answer.answerText}
