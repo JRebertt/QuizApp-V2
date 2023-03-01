@@ -9,13 +9,13 @@ Entendai é um aplicativo de quiz que ajuda os usuários a expandir seu conhecim
 - 📈 Acompanhamento de progresso: Os usuários podem acompanhar seu progresso, ver seu histórico de desempenho e comparar seus resultados com outros jogadores.
 - 🎓 Recursos educacionais de alta qualidade: O Entendai oferece recursos educacionais de alta qualidade, incluindo gráficos e animações, para tornar a aprendizagem ainda mais interativa e agradável.
 
-<!-- ## Como usar 🤔
+## Como usar 🤔
 
 1. 📲 Baixe o Entendai na loja de aplicativos do seu dispositivo móvel.
 2. 🔑 Crie uma conta ou faça login com sua conta existente.
 3. 📚 Escolha uma categoria de perguntas.
 4. 🤔 Responda às perguntas no tempo determinado.
-5. 📈 Confira suas pontuações e acompanhe seu progresso. -->
+5. 📈 Confira suas pontuações e acompanhe seu progresso.
 
 ## Requisitos ⚙️
 
