@@ -10,7 +10,6 @@ function App() {
   const [showResult, setShowResult] = useState<boolean | null>(null);
 
   // const [ progress, setProgress ] = useState();
-  
 
   function handleAnswerButtonClick(isCorrect: boolean) {
     if (isCorrect) {
