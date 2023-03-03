@@ -3,7 +3,7 @@
   "short_name": "Entendai",
   "icons": [
     {
-      "src": "./public/icone.svg",
+      "src": "/public/icone.png",
       "sizes": "192x192",
       "type": "image/png"
     }
