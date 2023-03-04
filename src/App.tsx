@@ -12,7 +12,7 @@ import SadBrain from "./assets/SadBrain.svg";
 function App() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
-  const [showScore, setShowScore] = useState(true);
+  const [showScore, setShowScore] = useState(false);
   const [showResult, setShowResult] = useState<boolean | null>(null);
 
   // const [ progress, setProgress ] = useState();
