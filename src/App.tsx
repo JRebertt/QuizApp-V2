@@ -1,12 +1,17 @@
 import { useState } from "react";
 import clsx from "clsx";
+
 import { AnswersButton } from "./components/AnswersButton";
+import { Result } from "./components/Result";
+
 import { questions } from "./data/questions";
+
+import SadBrain from "./assets/SadBrain.svg";
 
 function App() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
-  const [showScore, setShowScore] = useState(false);
+  const [showScore, setShowScore] = useState(true);
   const [showResult, setShowResult] = useState<boolean | null>(null);
 
   // const [ progress, setProgress ] = useState();
@@ -60,9 +65,26 @@ function App() {
     <>
       <div className="bg-[#252d4a] text-white absolute rounded-2xl w-11/12 max-w-2xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ease-in-out duration-300 shadow-2xl">
         {showScore ? (
-          <div className="flex items-center justify-center text-2xl p-20">
-            Você acertou {score} de {questions.length}
-          </div>
+          score > questions.length / 2 ? (
+            <div>
+              <h1 className="text-4xl font-semibold flex justify-center py-10">
+                Parabens
+              </h1>
+              <Result questions={questions.length} score={score} />
+            </div>
+          ) : (
+            <div className="flex justify-center flex-col">
+              <img
+                className="bg-green-500 w-64"
+                src={SadBrain}
+                alt="Cerebro Triste"
+              />
+              <h1 className="text-4xl font-semibold flex justify-center py-10">
+                Que Pena
+              </h1>
+              <Result questions={questions.length} score={score} />
+            </div>
+          )
         ) : (
           <>
             <div className="flex justify-center flex-col sm:flex-row sm:justify-between px-6 py-10 gap-10">
