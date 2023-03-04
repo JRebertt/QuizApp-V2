@@ -6,6 +6,7 @@ import { Result } from "./components/Result";
 
 import { questions } from "./data/questions";
 
+import HappyBrain from "./assets/HappyBrain.svg";
 import SadBrain from "./assets/SadBrain.svg";
 
 function App() {
@@ -66,20 +67,17 @@ function App() {
       <div className="bg-[#252d4a] text-white absolute rounded-2xl w-11/12 max-w-2xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ease-in-out duration-300 shadow-2xl">
         {showScore ? (
           score > questions.length / 2 ? (
-            <div>
-              <h1 className="text-4xl font-semibold flex justify-center py-10">
-                Parabens
+            <div className="flex justify-center flex-col pt-10">
+              <img className="h-40" src={HappyBrain} alt="Cerebro Triste" />
+              <h1 className="text-4xl font-semibold flex justify-center">
+                Que Pena
               </h1>
               <Result questions={questions.length} score={score} />
             </div>
           ) : (
-            <div className="flex justify-center flex-col">
-              <img
-                className="bg-green-500 w-64"
-                src={SadBrain}
-                alt="Cerebro Triste"
-              />
-              <h1 className="text-4xl font-semibold flex justify-center py-10">
+            <div className="flex justify-center flex-col pt-10">
+              <img className="h-40" src={SadBrain} alt="Cerebro Triste" />
+              <h1 className="text-4xl font-semibold flex justify-center">
                 Que Pena
               </h1>
               <Result questions={questions.length} score={score} />
