@@ -31,7 +31,7 @@ function App() {
         }, 700)
       : setShowScore(true);
 
-    console.log(isCorrect);
+    // console.log(isCorrect);
   }
 
   // function shuffleArrayWithoutRepetitions(array: any[]) {
@@ -55,12 +55,12 @@ function App() {
 
   const options = questions[currentQuestion].answerOptions;
 
-  console.log(
-    options.forEach((obj, i) => {
-      console.log(obj);
-      console.log(i);
-    })
-  );
+  // console.log(
+  //   options.forEach((obj, i) => {
+  //     console.log(obj);
+  //     console.log(i);
+  //   })
+  // );
 
   return (
     <>
