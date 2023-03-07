@@ -1,30 +1,35 @@
-// import { createContext, useContext } from "react";
-// import {
-//   GoogleAuthProvider,
-//   signInWithPopup,
-//   signInWithRedirect,
-//   signOut,
-//   onAuthStateChanged,
-// } from "firebase/auth";
+import { Children, createContext, useContext } from "react";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithRedirect,
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth";
 
-// import { auth } from '../lib/firebase'
+interface Props
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  > {}
 
-// const AuthContext = createContext();
+import { auth } from "../lib/firebase";
 
-// export const AuthContextProvider = ({ children }) => {
-//   const googleSignIn  = ()  =>  {
-//     const provider  = new GoogleAuthProvider()
-//     signInWithPopup(auth, provider)
-//   }
-//   return (
-//     <AuthContext.Provider 
-//     value={{googleSignIn}}
-//     >
-//       {children}
-//     </AuthContext.Provider>;
-//   )
-// };
+const AuthContext = createContext({});
 
-// export const UseAuth = () => {
-//   return useContext(AuthContext);
-// };
+export const AuthContextProvider = ({ ...props }: Props) => {
+  const { children } = props;
+  function googleSignIn() {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider);
+  }
+  return (
+    <AuthContext.Provider value={() => googleSignIn()}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const UseAuth = () => {
+  return useContext(AuthContext);
+};
