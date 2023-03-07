@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+
+import { Loader } from "./Loader";
 
 interface Props
   extends React.DetailedHTMLProps<
@@ -21,7 +23,7 @@ export function AuthRoutes({ ...props }: Props) {
 
   const AuthCheck = onAuthStateChanged(auth, (user) => {
     if (user) {
-      setLoading(false);
+      setLoading(true);
       console.log(user.email);
     } else {
       console.log("nao autorizado");
@@ -29,7 +31,7 @@ export function AuthRoutes({ ...props }: Props) {
     }
   });
 
-  if (loading) return <p>carregando</p>;
+  if (loading) return <Loader />;
 
   return <>{children}</>;
 }

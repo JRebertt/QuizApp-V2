@@ -10,7 +10,6 @@ export function SignIn() {
 
   async function handleSignInWithGoogle() {
     setAuthing(true);
-
     signInWithPopup(auth, new GoogleAuthProvider())
       .then((response) => {
         console.log(auth);
