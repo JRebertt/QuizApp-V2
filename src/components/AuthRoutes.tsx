@@ -23,7 +23,7 @@ export function AuthRoutes({ ...props }: Props) {
 
   const AuthCheck = onAuthStateChanged(auth, (user) => {
     if (user) {
-      setLoading(true);
+      setLoading(false);
       console.log(user.email);
     } else {
       console.log("nao autorizado");

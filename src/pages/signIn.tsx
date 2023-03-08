@@ -1,7 +1,8 @@
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useState } from "react";
-import GoogleButton from "react-google-button";
 import { useNavigate } from "react-router-dom";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+
+import { AuthCard } from "../components/authCard";
 
 export function SignIn() {
   const auth = getAuth();
@@ -10,7 +11,8 @@ export function SignIn() {
 
   async function handleSignInWithGoogle() {
     setAuthing(true);
-    signInWithPopup(auth, new GoogleAuthProvider())
+
+    await signInWithPopup(auth, new GoogleAuthProvider())
       .then((response) => {
         console.log(auth);
         navigate("/test");
@@ -21,11 +23,15 @@ export function SignIn() {
       });
   }
 
+  function handleLogin() {
+    console.log("Clicou");
+  }
+
   return (
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-      <GoogleButton
-        type="dark"
-        onClick={() => handleSignInWithGoogle()}
+      <AuthCard
+        googleButton={() => handleSignInWithGoogle()}
+        loginButton={async () => handleLogin()}
         disabled={authing}
       />
     </div>
