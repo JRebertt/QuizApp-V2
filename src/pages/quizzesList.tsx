@@ -1,6 +1,6 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ListProps, QuizCard } from "../components/QuizCard";
 import { db } from "../lib/firebase";
 
@@ -33,7 +33,7 @@ export function QuizzesList() {
                 title={quizz.id}
                 description={quizz.description}
                 click={() => {
-                  // navigate(`/${id}`)
+                  navigate(`/${quizz.id}`);
                 }}
               />
             </span>

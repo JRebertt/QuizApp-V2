@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
     element: <SignIn />,
   },
   {
-    path: "/quizzes",
+    path: "/quizzes:id",
     element: <QuizzesList />,
   },
 ]);
