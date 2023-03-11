@@ -28,3 +28,6 @@ Entendai foi criado por John Doe, um estudante de medicina apaixonado por tecnol
 ## Contato 📧
 
 Se você tiver alguma dúvida ou sugestão, entre em contato conosco pelo email: entendai@app.com. Estamos sempre buscando maneiras de melhorar a experiência do usuário. 😊
+
+## Version
+- 0.0.2
