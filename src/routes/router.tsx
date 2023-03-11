@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, useParams } from "react-router-dom";
 
 import App from "../App";
 import { AuthRoutes } from "../components/AuthRoutes";
@@ -8,7 +8,7 @@ import { SignIn } from "../pages/signIn";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/quizzes/quiz/:id",
     element: <App />,
   },
   {
@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
     element: <SignIn />,
   },
   {
-    path: "/quizzes:id",
+    path: "/quizzes",
     element: <QuizzesList />,
   },
 ]);

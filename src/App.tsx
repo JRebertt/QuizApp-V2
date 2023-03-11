@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import clsx from "clsx";
+import { useParams } from "react-router-dom";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 
 import { AnswersButton } from "./components/AnswersButton";
 import { Result } from "./components/Result";
@@ -8,14 +10,27 @@ import { questions } from "./data/questions";
 
 import HappyBrain from "./assets/HappyBrain.svg";
 import SadBrain from "./assets/SadBrain.svg";
+import { db } from "./lib/firebase";
+import { ListProps } from "./components/QuizCard";
 
 function App() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [showResult, setShowResult] = useState<boolean | null>(null);
+  // const [ progress, setProgress ] = useState()
 
-  // const [ progress, setProgress ] = useState();
+  const { id } = useParams();
+
+  const docRef = doc(db, `quizzes`, `${id}`);
+
+  useEffect(() => {
+    const getData = async () => {
+      const docSnap = await getDoc(docRef);
+      console.log({ ...docSnap.data(), id: docSnap.id });
+    };
+    getData();
+  }, []);
 
   function handleAnswerButtonClick(isCorrect: boolean) {
     if (isCorrect) {
