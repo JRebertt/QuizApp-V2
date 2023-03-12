@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
 import clsx from "clsx";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "./lib/firebase";
 
 import { AnswersButton } from "./components/AnswersButton";
 import { Result } from "./components/Result";
@@ -10,27 +11,38 @@ import { questions } from "./data/questions";
 
 import HappyBrain from "./assets/HappyBrain.svg";
 import SadBrain from "./assets/SadBrain.svg";
-import { db } from "./lib/firebase";
-import { ListProps } from "./components/QuizCard";
+
+interface AnswerOption {
+  answerTitle: string;
+  isCorrect: boolean;
+}
+
+interface Question {
+  answerOptions: AnswerOption[];
+  number: number;
+  questionTitle: string;
+  icon: string;
+}
+
+interface Quiz {
+  id: string;
+  name: string;
+  questions: Question[];
+}
 
 function App() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [showResult, setShowResult] = useState<boolean | null>(null);
-  // const [ progress, setProgress ] = useState()
 
+  // const [dataQuestions, setDataQuestion] = useState<Quiz[]>([]);
+  const [dataQuestions, setDataQuestion] = useState({});
   const { id } = useParams();
 
-  const docRef = doc(db, `quizzes`, `${id}`);
+  const message = score > questions.length / 2 ? "Parabéns" : "Que pena";
 
-  useEffect(() => {
-    const getData = async () => {
-      const docSnap = await getDoc(docRef);
-      console.log({ ...docSnap.data(), id: docSnap.id });
-    };
-    getData();
-  }, []);
+  const docRef = doc(db, `quizzes`, `${id}`);
 
   function handleAnswerButtonClick(isCorrect: boolean) {
     if (isCorrect) {
@@ -49,6 +61,29 @@ function App() {
     // console.log(isCorrect);
   }
 
+  function handleCheckIsCorrectButton(isCorrect: boolean) {
+    setShowResult(isCorrect);
+  }
+
+  useEffect(() => {
+    const getData = async () => {
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const { id } = { ...docSnap.data(), id: docSnap.id };
+        // setDataQuestion(data.questions[currentQuestion]);
+        setDataQuestion();
+        console.log(currentQuestion);
+      } else {
+        console.log("O documento não foi encontrado.");
+      }
+    };
+    getData();
+  }, [currentQuestion]);
+
+  console.log(dataQuestions);
+
+  const options = questions[currentQuestion].answerOptions;
+
   // function shuffleArrayWithoutRepetitions(array: any[]) {
   //   const indices = Array.from({ length: array.length }, (_, i) => i);
   //   const shuffledIndices = indices.sort(() => Math.random() - 0.5);
@@ -64,12 +99,6 @@ function App() {
   // const shuffledArray = shuffleArrayWithoutRepetitions(questions);
   // console.log(shuffledArray);
 
-  function handleCheckIsCorrectButton(isCorrect: boolean) {
-    setShowResult(isCorrect);
-  }
-
-  const options = questions[currentQuestion].answerOptions;
-
   // console.log(
   //   options.forEach((obj, i) => {
   //     console.log(obj);
@@ -81,23 +110,17 @@ function App() {
     <>
       <div className="bg-[#252d4a] text-white absolute rounded-2xl w-11/12 max-w-2xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ease-in-out duration-300 shadow-2xl">
         {showScore ? (
-          score > questions.length / 2 ? (
-            <div className="flex justify-center flex-col pt-10">
-              <img className="h-40" src={HappyBrain} alt="Cerebro Triste" />
-              <h1 className="text-4xl font-semibold flex justify-center">
-                Que Pena
-              </h1>
-              <Result questions={questions.length} score={score} />
-            </div>
-          ) : (
-            <div className="flex justify-center flex-col pt-10">
-              <img className="h-40" src={SadBrain} alt="Cerebro Triste" />
-              <h1 className="text-4xl font-semibold flex justify-center">
-                Que Pena
-              </h1>
-              <Result questions={questions.length} score={score} />
-            </div>
-          )
+          <div className="flex justify-center flex-col pt-10">
+            <img
+              className="h-40"
+              src={score > questions.length / 2 ? HappyBrain : SadBrain}
+              alt="Cerebro Triste"
+            />
+            <h1 className="text-4xl font-semibold flex justify-center">
+              {message}
+            </h1>
+            <Result questions={questions.length} score={score} />
+          </div>
         ) : (
           <>
             <div className="flex justify-center flex-col sm:flex-row sm:justify-between px-6 py-10 gap-10">
