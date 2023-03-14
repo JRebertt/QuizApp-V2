@@ -36,8 +36,9 @@ function App() {
   const [showScore, setShowScore] = useState(false);
   const [showResult, setShowResult] = useState<boolean | null>(null);
 
-  // const [dataQuestions, setDataQuestion] = useState<Quiz[]>([]);
-  const [dataQuestions, setDataQuestion] = useState({});
+  const [amountQuestions, setAmoutQuestions] = useState(0);
+
+  const [dataQuestion, setDataQuestion] = useState<Quiz | null>();
   const { id } = useParams();
 
   const message = score > questions.length / 2 ? "Parabéns" : "Que pena";
@@ -69,10 +70,10 @@ function App() {
     const getData = async () => {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        const { id } = { ...docSnap.data(), id: docSnap.id };
+        const data = { ...docSnap.data(), id: docSnap.id } as Quiz;
         // setDataQuestion(data.questions[currentQuestion]);
-        setDataQuestion();
-        console.log(currentQuestion);
+        setDataQuestion(data);
+        setAmoutQuestions(data.questions.length);
       } else {
         console.log("O documento não foi encontrado.");
       }
@@ -80,9 +81,9 @@ function App() {
     getData();
   }, [currentQuestion]);
 
-  console.log(dataQuestions);
-
-  const options = questions[currentQuestion].answerOptions;
+  // if (dataQuestion !== undefined) {
+  //   console.log(dataQuestion);
+  // }
 
   // function shuffleArrayWithoutRepetitions(array: any[]) {
   //   const indices = Array.from({ length: array.length }, (_, i) => i);
@@ -113,7 +114,7 @@ function App() {
           <div className="flex justify-center flex-col pt-10">
             <img
               className="h-40"
-              src={score > questions.length / 2 ? HappyBrain : SadBrain}
+              src={score > amountQuestions / 2 ? HappyBrain : SadBrain}
               alt="Cerebro Triste"
             />
             <h1 className="text-4xl font-semibold flex justify-center">
@@ -129,37 +130,41 @@ function App() {
                   <span className="font-medium text-2xl pr-1 select-none	">
                     Perguntas {currentQuestion + 1}
                   </span>
-                  <span>/{questions.length} </span>
+                  <span>/{dataQuestion?.questions.length} </span>
                 </div>
                 <div className="text-lg font-semibold py-2">
-                  {questions[currentQuestion].questionText}
+                  {dataQuestion?.questions[currentQuestion].questionTitle}
                 </div>
               </div>
               <div className="flex flex-col gap-4 ">
-                {questions[currentQuestion].answerOptions.map((answer, i) => {
-                  return (
-                    <span key={i}>
-                      <AnswersButton
-                        type="button"
-                        className={clsx(
-                          "bg-[#252d4a] w-full sm:w-64 flex justify-center items-center border-4 border-[#234668] px-2 py-6 h-10 rounded-lg hover:bg-[#555e7d]",
-                          {
-                            "bg-rose-500 hover:bg-rose-400":
-                              showResult === true && answer.isCorrect === false,
-                            "bg-green-500 hover:bg-green-400":
-                              showResult === true && answer.isCorrect === true,
-                          }
-                        )}
-                        onClick={() => {
-                          handleAnswerButtonClick(answer.isCorrect);
-                          handleCheckIsCorrectButton(true);
-                        }}
-                      >
-                        {answer.answerText}
-                      </AnswersButton>
-                    </span>
-                  );
-                })}
+                {dataQuestion?.questions[currentQuestion].answerOptions.map(
+                  (answer, i) => {
+                    return (
+                      <span key={i}>
+                        <AnswersButton
+                          type="button"
+                          className={clsx(
+                            "bg-[#252d4a] w-full sm:w-64 flex justify-center items-center border-4 border-[#234668] px-2 py-6 h-10 rounded-lg hover:bg-[#555e7d]",
+                            {
+                              "bg-rose-500 hover:bg-rose-400":
+                                showResult === true &&
+                                answer.isCorrect === false,
+                              "bg-green-500 hover:bg-green-400":
+                                showResult === true &&
+                                answer.isCorrect === true,
+                            }
+                          )}
+                          onClick={() => {
+                            handleAnswerButtonClick(answer.isCorrect);
+                            handleCheckIsCorrectButton(true);
+                          }}
+                        >
+                          {answer.answerTitle}
+                        </AnswersButton>
+                      </span>
+                    );
+                  }
+                )}
               </div>
             </div>
           </>
