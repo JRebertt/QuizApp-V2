@@ -45,27 +45,6 @@ function App() {
 
   const docRef = doc(db, `quizzes`, `${id}`);
 
-  function handleAnswerButtonClick(isCorrect: boolean) {
-    if (isCorrect) {
-      setScore(score + 1);
-    }
-
-    const nextQuestion = currentQuestion + 1;
-
-    nextQuestion < questions.length
-      ? setTimeout(() => {
-          setCurrentQuestion(nextQuestion);
-          setShowResult(false);
-        }, 700)
-      : setShowScore(true);
-
-    // console.log(isCorrect);
-  }
-
-  function handleCheckIsCorrectButton(isCorrect: boolean) {
-    setShowResult(isCorrect);
-  }
-
   useEffect(() => {
     const getData = async () => {
       const docSnap = await getDoc(docRef);
@@ -80,6 +59,27 @@ function App() {
     };
     getData();
   }, [currentQuestion]);
+
+  function handleAnswerButtonClick(isCorrect: boolean) {
+    if (isCorrect) {
+      setScore(score + 1);
+    }
+
+    const nextQuestion = currentQuestion + 1;
+
+    nextQuestion < amountQuestions
+      ? setTimeout(() => {
+          setCurrentQuestion(nextQuestion);
+          setShowResult(false);
+        }, 700)
+      : setShowScore(true);
+
+    // console.log(isCorrect);
+  }
+
+  function handleCheckIsCorrectButton(isCorrect: boolean) {
+    setShowResult(isCorrect);
+  }
 
   // if (dataQuestion !== undefined) {
   //   console.log(dataQuestion);

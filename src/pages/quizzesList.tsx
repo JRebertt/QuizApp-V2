@@ -27,7 +27,11 @@ export function QuizzesList() {
         {quizzes.map((quizz) => {
           return (
             <Link key={quizz.id} to={`quiz/${quizz.id}`}>
-              <QuizCard title={quizz.name} description={quizz.description} />
+              <QuizCard
+                title={quizz.name}
+                description={quizz.description}
+                URL={quizz.URL}
+              />
             </Link>
           );
         })}
