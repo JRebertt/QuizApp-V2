@@ -18,7 +18,7 @@ export function QuizzesList() {
   }, [quizzes]);
 
   return (
-    <div className="max-w-3xl mx-auto py-16 px-8">
+    <div className="max-w-5xl mx-auto py-16 px-8">
       <h1 className="text-xl font-bold mt-6">Qual tema você quer realizar?</h1>
       <span className="mt-1 text-sm text-zinc-400">
         Inicie escolhendo um dos testes da lista abaixo

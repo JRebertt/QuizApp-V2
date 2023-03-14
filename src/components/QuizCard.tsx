@@ -36,9 +36,9 @@ export function QuizCard({
     //   </button>
     // </div>
 
-    <div className="w-64 p-4 min-h-[16rem] py-6 mt-10 bg-[#252d4a] shadow-lg rounded-2xl cursor-pointer	">
+    <div className="w-96 p-4 min-h-[16rem] py-6 mt-10 bg-[#252d4a] shadow-lg rounded-2xl cursor-pointer	">
       <div className="flex flex-col items-center justify-center">
-        <div className="relative w-24 h-24 bg-green-200 rounded-full">
+        <div className="relative w-16 h-16 bg-green-200 rounded-full">
           <svg
             width="20"
             height="20"
