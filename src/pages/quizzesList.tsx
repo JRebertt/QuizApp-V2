@@ -26,7 +26,7 @@ export function QuizzesList() {
       <div className="flex flex-col flex-wrap sm:flex-row gap-2 px-10">
         {quizzes.map((quizz) => {
           return (
-            <Link key={quizz.id} to={`quiz/${quizz.id}`}>
+            <Link key={quizz.id} to={`quizzes/quiz/${quizz.id}`}>
               <QuizCard
                 title={quizz.name}
                 description={quizz.description}
