@@ -120,7 +120,7 @@ function App() {
             <h1 className="text-4xl font-semibold flex justify-center">
               {message}
             </h1>
-            <Result questions={questions.length} score={score} />
+            <Result questions={amountQuestions} score={score} />
           </div>
         ) : (
           <>
